@@ -26,7 +26,6 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -34,12 +33,10 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+ <img src="https://github.com/Galadows/ProwdApp/blob/master/images/AppScreen.jpg" align="center" alt="Logo" width="150" >
 
-[![ProwdApp Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
+This is an Exemple App to show what i'm able to do with ReactNative and ProwdApi
 
 
 ### Built With
@@ -56,7 +53,6 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
   npm install npm@latest -g
@@ -78,10 +74,21 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The ProwdApp is Simple:
+No home screen, it goes directly to the point: the chat.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<img src="https://github.com/Galadows/ProwdApp/blob/master/images/Screen1.jpg" align="center" alt="Logo" width="150" >
 
+Here, you can see it's composed of 3 main View: the header, the chat container, and the userInput container.
+It automatically load the chat history at first launch, then you can start talking to the bot by typing in the text input and sending the message by pressing the send button on the right, or by validating your input with the keyboard.
+
+<img src="https://github.com/Galadows/ProwdApp/blob/master/images/Screen2.jpg" align="center" alt="Logo" width="150" >
+
+It then displays your message and the answer provided by the API.
+If the answer contains some buttons, they are displayed and you can interact with the "postback" ones.
+If you do, the App sends the chosen button title as a user message to the Api then displays both the message and the Api answer.
+
+<img src="https://github.com/Galadows/ProwdApp/blob/master/images/Screen3.jpg" align="center" alt="Logo" width="150" >
 
 
 <!-- ROADMAP -->
@@ -93,34 +100,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - havane.palabaud@epitech.eu
+Havane Palabaud - havane.palabaud@epitech.eu
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/Galadows/ProwdApp/)
+Project Link: [ProwdApp](https://github.com/Galadows/ProwdApp/)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* []()
-* []()
-* []()
-
-
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/github_username
