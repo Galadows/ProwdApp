@@ -11,16 +11,19 @@ class Message extends React.Component{
 
     _displayMessage(current_message, type){
         if (type == "bot_message"){
+            console.log("--------------------THIS IS A BOT MESSAGE--------------------")
+            console.log(current_message)
+            console.log("------------------------------------------------------------")
             return this._displayBotMessage(current_message)
         }else if (type == "user_message"){
+            console.log("--------------------THIS IS A USER MESSAGE--------------------")
+            console.log(current_message)
+            console.log("------------------------------------------------------------")
             return this._displayUserMessage(current_message)
         }
     }
 
     _displayBotMessage(bot_message){
-        console.log(bot_message)
-        console.log("--------------------");
-
         return (<FlatList
                     data={Object.keys(bot_message.message)}
                     keyExtractor={(item) => uuid()}
@@ -55,7 +58,7 @@ class Message extends React.Component{
     }
 
     _displayUserMessage(user_message){
-        return ( <View style={styles.user_message_container}><Text style={styles.user_message}>{user_message.message}</Text></View>)
+        return ( <View style={styles.user_message_container}><Text style={styles.user_message}>{JSON.stringify(user_message.message).substring(1,JSON.stringify(user_message.message).length-1)}</Text></View>)
     }
 
 

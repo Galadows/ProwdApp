@@ -6,24 +6,22 @@ const AUTH_TOKEN = "53616c7465645f5f30c3fbcab5721e791de5c170251741079bc752ffed34
 
 export async function getChatHistory(conversation_id){
     const url = 'https://dev.beprowd.fr/webchat-history'
+    try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              auth: AUTH_TOKEN,
-              conversation_id: '114548-4542457-142424-452452-webchat',
-              type: "get",
-              lookback: "2020-12-10T19:37:28.622Z"
+            auth: AUTH_TOKEN,
+            conversation_id: '114548-4542457-142424-452452-webchat',
+            type: "get",
+            lookback: "2020-12-10T19:37:28.622Z"
             })
-          }).then((response) => response.json())
-          .then((json) => {
-              console.log(json)
-            return json
-          })
-          .catch((error) => {
+        })
+          return await response.json()
+    }catch(error){
             console.error(error);
-          });
+    }
 }

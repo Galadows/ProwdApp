@@ -13,7 +13,7 @@ class Chat extends React.Component{
         super(props)
         this.userMessage = ""
         this.state = {
-            chatHistory: [],
+            chatHistory: [[]],
             isLoading: false
         }
     }
@@ -33,11 +33,11 @@ class Chat extends React.Component{
         if (this.userMessage.length > 0) {
             getChatHistory("test").then(data => {
                 this.setState({
-                    chatHistory: [...this.state.chatHistory, data],
+                    chatHistory: [data],
                     isLoading: false
                 },() => {
                     console.log("----------------------THIS IS THE CHAT HISTORY------------------------")
-                    console.log(this.state.chatHistory)
+                    console.log(this.state.chatHistory[0][0])
                 } )})
            
         }
@@ -54,7 +54,7 @@ class Chat extends React.Component{
     
 
     render(){
-        //console.log(messages)s
+        //console.log(messages)
         return (
             <View style={styles.main_container}>
                 <View style={styles.header_container}>
@@ -69,9 +69,9 @@ class Chat extends React.Component{
                 <View style={styles.chat_container}>
                     <FlatList
                         style={styles.message_list}
-                        data={Object.keys(messages)}
+                        data={Object.keys(this.state.chatHistory[0])}
                         keyExtractor={(item) => uuid()}
-                        renderItem={({item}) => <Message message={messages[item]} type={this._getMessageType(messages[item])} /> }
+                        renderItem={({item}) => <Message message={this.state.chatHistory[0][item]} type={this._getMessageType(this.state.chatHistory[0][item])} /> }
                     />
                 </View>
 
