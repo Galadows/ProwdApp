@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Galadows/ProwdApp/">
-    <img src="https://www.beprowd.com/wp-content/uploads/2018/11/Logo-Prowd.png" alt="Logo" width="150" >
+    <img src="https://www.beprowd.com/wp-content/uploads/2018/11/Logo-Prowd.png" alt="Logo" width="300" >
   </a>
 
   <h3 align="center">ProwdApp</h3>
