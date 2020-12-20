@@ -39,6 +39,7 @@ class Chat extends React.Component{
 
     _loadMessages(conversation, lookback){
             getChatHistory(conversation, lookback).then(data => {
+                data = data.reverse()
                 this.setState({
                     firstLaunch: 1,
                     chatHistory: [...data],
@@ -75,7 +76,7 @@ class Chat extends React.Component{
                     }]
                     this.textInput.current.clear();
                 this.setState({
-                    chatHistory: [...this.state.chatHistory, ...userMessage, ...botAnswer],
+                    chatHistory: [...botAnswer, ...userMessage, ...this.state.chatHistory],
                     isLoading: false
                 },() => {
                     console.log("----------------------THIS IS THE CHAT HISTORY------------------------")
@@ -112,6 +113,7 @@ class Chat extends React.Component{
 
                 <View style={styles.chat_container}>
                     <FlatList
+                        inverted={-1}
                         maxToRenderPerBatch={100}
                         style={styles.message_list}
                         data={Object.keys(this.state.chatHistory)}
