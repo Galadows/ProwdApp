@@ -11,14 +11,14 @@ class Message extends React.Component{
 
     _displayMessage(current_message, type){
         if (type == "bot_message"){
-            console.log("--------------------THIS IS A BOT MESSAGE--------------------")
-            console.log(current_message)
-            console.log("------------------------------------------------------------")
+            // console.log("--------------------THIS IS A BOT MESSAGE--------------------")
+            // console.log(current_message)
+            // console.log("------------------------------------------------------------")
             return this._displayBotMessage(current_message)
         }else if (type == "user_message"){
-            console.log("--------------------THIS IS A USER MESSAGE--------------------")
-            console.log(current_message)
-            console.log("------------------------------------------------------------")
+            // console.log("--------------------THIS IS A USER MESSAGE--------------------")
+            // console.log(current_message)
+            // console.log("------------------------------------------------------------")
             return this._displayUserMessage(current_message)
         }
     }

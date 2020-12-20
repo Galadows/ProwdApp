@@ -4,15 +4,17 @@ import Constants from 'expo-constants'
 import messages from '../Helpers/PROWDAnswer'
 import Message from './Message'
 import uuid from 'uuid-random'
-import {getChatHistory} from '../API/PROWDApi'
+import {getChatHistory, postUserMessage} from '../API/PROWDApi'
 
 
 class Chat extends React.Component{
 
     constructor(props){
         super(props)
+        this.textInput = React.createRef();
         this.userMessage = ""
         this.state = {
+            firstLaunch: 0,
             chatHistory: [[]],
             isLoading: false
         }
@@ -28,16 +30,46 @@ class Chat extends React.Component{
         }
     }
 
-    _loadMessages(){
-        this.setState({isLoading: true})
-        if (this.userMessage.length > 0) {
-            getChatHistory("test").then(data => {
+    _loadAtLaunch(conversation, lookback){
+        if (this.state.firstLaunch < 1) {
+            this._loadMessages(conversation, lookback)
+        }
+    }
+
+    _loadMessages(conversation, lookback){
+            getChatHistory(conversation, lookback).then(data => {
                 this.setState({
-                    chatHistory: [data],
+                    firstLaunch: 1,
+                    chatHistory: [...data],
                     isLoading: false
                 },() => {
                     console.log("----------------------THIS IS THE CHAT HISTORY------------------------")
-                    console.log(this.state.chatHistory[0][0])
+                    console.log(this.state.chatHistory[0])
+                } )})
+
+    }
+
+    _postAndLoadNewMessages(conversation, userMessage){
+        this.setState({isLoading: true})
+        if (this.userMessage.length > 0) {
+            postUserMessage(conversation, userMessage).then(data => {
+                    let userMessage= [{
+                        message: this.userMessage,
+                        type: "user_message"
+                    }] 
+                    this.userMessage = ""
+                    let botAnswer = [{
+                        message: data,
+                        type: "bot_message"
+                    }]
+                    this.textInput.current.clear();
+                this.setState({
+                    chatHistory: [...this.state.chatHistory, ...userMessage, ...botAnswer],
+                    isLoading: false
+                },() => {
+                    console.log("----------------------THIS IS THE CHAT HISTORY------------------------")
+                    console.log(this.state.chatHistory[this.state.chatHistory.length-2])
+                    console.log(this.state.chatHistory[this.state.chatHistory.length-1])
                 } )})
            
         }
@@ -55,6 +87,7 @@ class Chat extends React.Component{
 
     render(){
         //console.log(messages)
+        this._loadAtLaunch("114548-4542457-142424-452452-webchat","2020-12-10T19:37:28.622Z")
         return (
             <View style={styles.main_container}>
                 <View style={styles.header_container}>
@@ -68,16 +101,17 @@ class Chat extends React.Component{
 
                 <View style={styles.chat_container}>
                     <FlatList
+                        maxToRenderPerBatch={100}
                         style={styles.message_list}
-                        data={Object.keys(this.state.chatHistory[0])}
+                        data={Object.keys(this.state.chatHistory)}
                         keyExtractor={(item) => uuid()}
-                        renderItem={({item}) => <Message message={this.state.chatHistory[0][item]} type={this._getMessageType(this.state.chatHistory[0][item])} /> }
+                        renderItem={({item}) => <Message message={this.state.chatHistory[item]} type={this._getMessageType(this.state.chatHistory[item])} /> }
                     />
                 </View>
 
                 <View style={styles.userInput_container}>
-                    <TextInput onChangeText={(text) => this._userTextInputChanged(text)} onSubmitEditing={() => this._loadMessages()} style={styles.userinput} placeholderTextColor="#FFFFFF" placeholder="Message"></TextInput>
-                    <TouchableOpacity onPress={() => this._loadMessages()}>
+                    <TextInput ref={this.textInput} onChangeText={(text) => this._userTextInputChanged(text)} onSubmitEditing={() => this._postAndLoadNewMessages('114548-4542457-142424-452452-webchat', this.state.userMessage)} style={styles.userinput} placeholderTextColor="#FFFFFF" placeholder="Message"></TextInput>
+                    <TouchableOpacity onPress={() => this._postAndLoadNewMessages('114548-4542457-142424-452452-webchat', this.userMessage)}>
                         <Image
                             style={styles.sendLogo}
                             source={require('../assets/sendIcon.png')}
