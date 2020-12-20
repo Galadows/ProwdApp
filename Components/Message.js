@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, Button, TextInput, View, FlatList } from 'react-native'
+import { StyleSheet, Text, Button, TextInput, View, FlatList, TouchableOpacity, Dimensions } from 'react-native'
 import uuid from 'uuid-random'
+
 
 class Message extends React.Component{
 
@@ -25,9 +26,21 @@ class Message extends React.Component{
                     keyExtractor={(item) => uuid()}
                     renderItem={({item}) => {
                         if(this._getMessageType(bot_message.message[item])=="text"){
-                            return (<Text>{bot_message.message[item].content}</Text>)
-                        }else if(this._getMessageType(bot_message.message[item])=="button"){
-                            return (<Text>i'm a button</Text>)
+                            return (<View style={styles.bot_message_container}><Text style={styles.bot_message}>{bot_message.message[item].content}</Text></View>)
+                        }else if(this._getMessageType(bot_message.message[item])=="buttons"){
+                            return (<View style={styles.bot_question_container}>
+                                        <Text style={styles.bot_buttons_title}>{bot_message.message[item].content.title}</Text>
+                                        <FlatList
+                                                data={bot_message.message[item].content.buttons}
+                                                keyExtractor={(item) => uuid()}
+                                                renderItem={({item}) => {
+                                                return (<TouchableOpacity style={styles.bot_button_container} >
+                                                             <Text style={styles.bot_button}>{item.title}</Text>
+                                                        </TouchableOpacity>)
+                                            }
+                                            }
+                                        />
+                                    </View>)
                                     } 
                     }
                     }
@@ -42,7 +55,7 @@ class Message extends React.Component{
     }
 
     _displayUserMessage(user_message){
-        return ( <Text>{user_message.message}</Text>)
+        return ( <View style={styles.user_message_container}><Text style={styles.user_message}>{user_message.message}</Text></View>)
     }
 
 
@@ -59,5 +72,66 @@ class Message extends React.Component{
 
 
 }
+
+
+const styles = StyleSheet.create({
+    bot_buttons_title: {
+        padding: 10,
+        alignSelf: 'center',
+        backgroundColor: "#7FD18F",
+        color: "#FFFFFF",
+        borderRadius: 10
+    },
+
+    bot_button: {
+        padding: 10,
+        margin: 1,
+        backgroundColor: "#08605F",
+        color: "#FFFFFF",
+        alignSelf: 'center',
+        borderRadius: 10
+    },
+    
+    bot_question_container: {
+        margin: 3,
+        alignSelf: 'center',
+    },
+
+    bot_button_container: {
+        margin: 1,
+        alignSelf: 'center',
+    },
+
+    user_message: {
+        padding: 15,
+        alignSelf: 'flex-end',
+        backgroundColor: "#177E89",
+        color: '#FFFFFF',
+        borderRadius: 10
+    },
+
+    bot_message: {
+        padding: 15,
+        alignSelf: 'flex-start',
+        borderRadius: 10,
+        backgroundColor: "#7FD18F",
+        color: "#FFFFFF"
+    },
+
+    bot_message_container: {
+        padding: 1,
+        margin: 3,
+        marginRight: 50,
+    },
+
+    user_message_container: {
+        padding: 1,
+        margin: 3,
+        marginLeft: 50,
+        
+    }
+
+
+})
 
 export default Message
