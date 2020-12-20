@@ -13,7 +13,6 @@ class Chat extends React.Component{
         super(props)
         this.textInput = React.createRef();
         this.userMessage = ""
-        this._postAndLoadNewMessages = this._postAndLoadNewMessages.bind(this);
         this.state = {
             firstLaunch: 0,
             chatHistory: [[]],
@@ -51,9 +50,19 @@ class Chat extends React.Component{
 
     }
 
-    _postAndLoadNewMessages(conversation, userMessage){
-        this.setState({isLoading: true})
-        if (this.userMessage.length > 0) {
+    botButtonCallBack = (conversation, userMessage) => {
+        console.log("I'm a callBack")
+        console.log(conversation)
+        console.log(userMessage)
+        this._postAndLoadNewMessages(conversation, userMessage, true)
+    }
+
+    _postAndLoadNewMessages(conversation, userMessage, botButton){
+        if(typeof botButton !== 'undefined'){
+            this.userMessage = userMessage
+        } else{ botButton = false}
+        // this.setState({isLoading: true})
+        if (this.userMessage.length > 0 || botButton) {
             postUserMessage(conversation, userMessage).then(data => {
                     let userMessage= [{
                         message: this.userMessage,
@@ -107,7 +116,7 @@ class Chat extends React.Component{
                         style={styles.message_list}
                         data={Object.keys(this.state.chatHistory)}
                         keyExtractor={(item) => uuid()}
-                        renderItem={({item}) => <Message message={this.state.chatHistory[item]} type={this._getMessageType(this.state.chatHistory[item])} botButtonFunc={this._postAndLoadNewMessages} /> }
+                        renderItem={({item}) => <Message message={this.state.chatHistory[item]} type={this._getMessageType(this.state.chatHistory[item])} botButtonFunc={this.botButtonCallBack} /> }
                     />
                 </View>
 
