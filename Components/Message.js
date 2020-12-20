@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, Button, TextInput, View, FlatList, TouchableOpacity, Dimensions } from 'react-native'
 import uuid from 'uuid-random'
 
-
 class Message extends React.Component{
 
      _getMessageType(obj_message){
@@ -37,9 +36,16 @@ class Message extends React.Component{
                                                 data={bot_message.message[item].content.buttons}
                                                 keyExtractor={(item) => uuid()}
                                                 renderItem={({item}) => {
-                                                return (<TouchableOpacity style={styles.bot_button_container} >
-                                                             <Text style={styles.bot_button}>{item.title}</Text>
-                                                        </TouchableOpacity>)
+                                                    if (this._getMessageType(item) == "postback" || this._getMessageType(item) == null) {
+                                                        return (<TouchableOpacity onPress={() => this.props.botButtonFunc('114548-4542457-142424-452452-webchat', item.value)} style={styles.bot_button_container} >
+                                                            <Text style={styles.bot_button}>{item.title}</Text>
+                                                       </TouchableOpacity>)
+                                                    }else{
+                                                            return (<TouchableOpacity data-value={item.value}style={styles.bot_button_container} >
+                                                                <Text style={styles.bot_button}>{item.title}</Text>
+                                                           </TouchableOpacity>)
+                                                    }
+
                                             }
                                             }
                                         />

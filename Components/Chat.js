@@ -13,6 +13,7 @@ class Chat extends React.Component{
         super(props)
         this.textInput = React.createRef();
         this.userMessage = ""
+        this._postAndLoadNewMessages = this._postAndLoadNewMessages.bind(this);
         this.state = {
             firstLaunch: 0,
             chatHistory: [[]],
@@ -29,6 +30,7 @@ class Chat extends React.Component{
         )
         }
     }
+    
 
     _loadAtLaunch(conversation, lookback){
         if (this.state.firstLaunch < 1) {
@@ -105,7 +107,7 @@ class Chat extends React.Component{
                         style={styles.message_list}
                         data={Object.keys(this.state.chatHistory)}
                         keyExtractor={(item) => uuid()}
-                        renderItem={({item}) => <Message message={this.state.chatHistory[item]} type={this._getMessageType(this.state.chatHistory[item])} /> }
+                        renderItem={({item}) => <Message message={this.state.chatHistory[item]} type={this._getMessageType(this.state.chatHistory[item])} botButtonFunc={this._postAndLoadNewMessages} /> }
                     />
                 </View>
 
@@ -135,17 +137,16 @@ const styles = StyleSheet.create({
     header_container: {
         flex: 1,
         margin: 1,
-        overflow: 'visible',
     },
     chat_container: {
         flex: 8,
-        margin: 1,
+        marginTop: 1,
         overflow: 'hidden'
     },
     userInput_container: {
         flex: 1,
         flexDirection: 'row',
-        margin: 1,
+        marginTop: 1,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         backgroundColor: '#177E89'

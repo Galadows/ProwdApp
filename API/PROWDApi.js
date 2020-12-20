@@ -1,6 +1,3 @@
-import React from 'react'
-import { StyleSheet, Text, Button, TextInput, View, FlatList } from 'react-native'
-import messages from '../Helpers/PROWDAnswer'
 
 const AUTH_TOKEN = "53616c7465645f5f30c3fbcab5721e791de5c170251741079bc752ffed341158bbbfa3a8d3e413f32519ab3bdd2d9e73e3d8d9310094281d2aa23537720c3d8dbfcb7d59be889f82e8ccae57e8e7b0af"
 
