@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Galadows/ProwdApp/">
-    <img src="https://www.beprowd.com/wp-content/uploads/2018/11/Logo-Prowd.png" alt="Logo" width="80" height="80">
+    <img src="https://www.beprowd.com/wp-content/uploads/2018/11/Logo-Prowd.png" alt="Logo" width="150" >
   </a>
 
   <h3 align="center">ProwdApp</h3>
@@ -44,9 +44,8 @@ Here's a blank template to get started:
 
 ### Built With
 
-* [NodeJs]()
-* [React]()
-* [ReactNative]()
+* [NodeJs](https://nodejs.org/en/)
+* [ReactNative](https://reactnative.dev/)
 
 
 
